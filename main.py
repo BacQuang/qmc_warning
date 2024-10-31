@@ -123,6 +123,12 @@ all_dfs = [df_vnindex] + list(factor_data.values())
 latest_start_date = max(df.index.min() for df in all_dfs)
 max_date = today
 
+# Filter all dataframes to start from the latest start date
+df_vnindex = df_vnindex[df_vnindex.index >= latest_start_date]
+for sym in factor_data:
+    factor_data[sym] = factor_data[sym][factor_data[sym].index >= latest_start_date]
+
+
 # Create subplots with custom layout
 fig = ms.make_subplots(
     rows=3, cols=2,
